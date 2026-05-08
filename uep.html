@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Eastern Pangasinan</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* CSS RESET & VARIABLES */
+        :root {
+            --maroon: #800000;
+            --dark-maroon: #5a0000;
+            --gold: #f1c40f;
+            --light-bg: #f9f9f9;
+            --text-gray: #555;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: white; color: #333; overflow-x: hidden; }
+
+        /* --- HEADER & NAV --- */
+        .top-bar {
+            background: var(--maroon); color: white;
+            display: flex; justify-content: space-between;
+            padding: 8px 10%; font-size: 12px;
+        }
+        .socials i { margin-right: 15px; cursor: pointer; transition: 0.3s; }
+        .socials i:hover { color: var(--gold); }
+        .top-links i { margin-right: 5px; }
+
+        nav {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 10%; background: white; position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .logo-box { display: flex; align-items: center; gap: 10px; }
+        .logo-box img { height: 55px; } /* Adjust height as needed */
+        .logo-box h1 { font-size: 18px; color: var(--maroon); text-transform: uppercase; line-height: 1.1; }
+        
+        nav ul { display: flex; list-style: none; gap: 25px; align-items: center; }
+        nav ul li { position: relative; }
+        nav ul li a { text-decoration: none; color: #333; font-size: 14px; font-weight: 500; padding: 8px 0; display: block; }
+        nav ul li a.active { color: var(--maroon); font-weight: 700; }
+        nav ul li a:hover { color: var(--maroon); }
+        
+        /* Dropdown Functionality */
+.dropdown { 
+    position: relative; 
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 220px; /* Ginawa nating mas malapad nang kaunti gaya ng nasa screenshot */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: none;
+    list-style: none;
+    padding: 0; /* Inalis ang padding sa menu mismo para sagad ang hover effect */
+    border-top: 3px solid var(--dark-maroon);
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu { 
+    display: block; 
+}
+
+.dropdown-menu li a { 
+    padding: 12px 20px; 
+    display: block; 
+    font-weight: 500; 
+    color: #333; 
+    text-decoration: none;
+    transition: all 0.2s ease; /* Para smooth ang pagpalit ng kulay */
+}
+
+/* Updated Hover: Maroon Background at White Text */
+.dropdown-menu li a:hover { 
+    background-color: var(--dark-maroon); /* Magiging maroon ang bg */
+    color: white !important; /* Magiging puti ang text gaya ng sa screenshot */
+}
+
+/* Enroll Button */
+.enroll-btn {
+    background: var(--dark-maroon);
+    color: white !important;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.enroll-btn:hover { 
+    background: #a02020; 
+    transform: scale(1.05); 
+}
+
+        /* --- HERO SECTION --- */
+        .hero { display: flex; padding: 60px 10% 100px; position: relative; gap: 30px; align-items: center; }
+        .hero-left { flex: 1.2; z-index: 2; }
+        .hero-left h3 { font-weight: 400; color: #666; margin-bottom: 5px; }
+        .hero-left h1 { font-size: 55px; color: var(--maroon); line-height: 1.1; margin-bottom: 20px; font-weight: 800; }
+        .hero-left p { color: var(--text-gray); margin-bottom: 30px; max-width: 480px; font-size: 15px; }
+        
+        .hero-btns { display: flex; gap: 15px; margin-bottom: 40px; }
+        .btn-p { background: var(--maroon); color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .btn-s { border: 1.5px solid #ddd; padding: 12px 28px; border-radius: 8px; text-decoration: none; color: #333; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+
+        /* --- STATS BOX (Yung bagong may icons) --- */
+        .stats-strip {
+            background: var(--dark-maroon); color: white;
+            display: flex; padding: 25px 35px; border-radius: 20px 20px 20px 0; gap: 40px; width: fit-content;
+        }
+        .stat-item { display: flex; align-items: center; gap: 15px; border-right: 1px solid rgba(255,255,255,0.2); padding-right: 30px; }
+        .stat-item:last-child { border-right: none; padding-right: 0; }
+        .stat-item i { font-size: 32px; color: var(--gold); }
+        .stat-text strong { display: block; font-size: 22px; font-weight: 700; }
+        .stat-text small { font-size: 11px; opacity: 0.8; }
+
+        /* --- HERO RIGHT (Building & Board Passers) --- */
+        .hero-right { flex: 1; position: relative; }
+        .img-curve {
+            width: 100%; height: 480px; background: #eee; 
+            border-radius: 20px 20px 20px 0; border: 10px solid white; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .midwives-overlay {
+            position: absolute;
+            bottom: -30px;
+            right: 5%;
+            left: auto;
+            transform: none;
+            width: fit-content;
+            max-width: 650px;
+            background: #fff;
+            border-radius: 20px 20px 20px 0;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            padding: 15px 25px;
+            z-index: 10;
+        }
+        .mid-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .mid-header .star-badge {
+            background: var(--maroon);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        .mid-header h2 {
+            font-size: 12px;
+            color: var(--maroon);
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+        .mid-header .batch-badge {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #f5f5f5;
+            color: var(--maroon);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 8px;
+            font-weight: 600;
+            border: 1px solid var(--maroon);
+        }
+        
+        .midwives-grid {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+        .midwife {
+            text-align: center;
+            width: calc(16.66% - 8px);
+            min-width: 60px;
+        }
+        .midwife .m-photo {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 4px;
+            background: #eee;
+        }
+        .midwife .m-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .midwife .m-name {
+            font-size: 7px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1px;
+            line-height: 1.2;
+        }
+        .midwife .m-honor {
+            font-size: 6px;
+            color: var(--maroon);
+            font-weight: 600;
+            margin-bottom: 1px;
+        }
+        .midwife .m-title {
+            font-size: 5px;
+            color: #666;
+            line-height: 1.2;
+        }
+        
+        @media (max-width: 900px) {
+            .midwives-grid { flex-wrap: wrap; gap: 10px; }
+            .midwife { width: calc(33.33% - 10px); }
+            .mid-header .batch-badge { position: static; transform: none; margin-left: 10px; }
+            .mid-header { flex-wrap: wrap; }
+        }
+        @media (max-width: 500px) {
+            .midwife { width: calc(50% - 8px); }
+            .midwives-overlay { padding: 15px 20px; }
+        }
+
+        /* --- FEATURE CARDS (Yung bagong may icons) --- */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 20px; padding: 100px 10% 60px;
+        }
+        .f-card {
+            background: white; padding: 25px; border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+            display: flex; align-items: flex-start; gap: 18px;
+            transition: 0.3s;
+        }
+        .f-card:hover { transform: translateY(-5px); }
+        
+        .icon-circle {
+            background: #fff0f0; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .icon-circle i { color: var(--maroon); font-size: 24px; }
+        
+        .f-info h4 { font-size: 15px; margin-bottom: 5px; color: #333; font-weight: 600; }
+        .f-info p { font-size: 12px; color: #777; line-height: 1.4; }
+
+        /* --- WHAT'S HAPPENING (News Section) --- */
+        .news-section { background: var(--light-bg); padding: 80px 10%; text-align: center; }
+        .section-title { font-size: 36px; margin-bottom: 40px; }
+        .section-title span { color: var(--gold); }
+        
+        .news-container { display: flex; gap: 25px; justify-content: center; margin-bottom: 30px; text-align: left; }
+        .news-card { background: white; flex: 1; display: flex; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .news-img { width: 45%; background: #ddd; position: relative; height: 200px; overflow: hidden; }
+        .news-img img { width: 100%; height: 100%; object-fit: cover; }
+        .date-tag { position: absolute; top: 15px; left: 15px; background: var(--gold); padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 12px; text-align: center; line-height: 1.1; }
+        .news-info { padding: 25px; width: 55%; }
+        .news-info a { color: var(--maroon); text-decoration: none; font-size: 13px; font-weight: 600; display: block; margin-top: 15px; }
+
+        .show-events-btn { background: var(--maroon); color: white; padding: 12px 35px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; }
+
+        /* --- CONTACT SECTION & FORM --- */
+        .contact-section { padding: 80px 10%; display: flex; gap: 60px; }
+        .contact-left { flex: 1; }
+        .contact-left h2 { color: var(--maroon); font-size: 36px; margin-bottom: 20px; font-weight: 700; }
+        
+        .info-link { display: flex; align-items: center; gap: 15px; margin-bottom: 18px; color: #555; text-decoration: none; font-size: 14px; }
+        .info-link i { color: var(--maroon); font-size: 18px; width: 20px; text-align: center; }
+        
+        .contact-form { flex: 1.5; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .contact-form input, .contact-form select, .contact-form textarea {
+            padding: 12px; border: 1px solid #ddd; border-radius: 5px; width: 100%; outline: none; font-size: 14px;
+        }
+        .contact-form textarea { grid-column: span 2; height: 120px; }
+        .send-btn { background: var(--maroon); color: white; padding: 12px 40px; border: none; border-radius: 5px; grid-column: span 2; width: fit-content; justify-self: center; cursor: pointer; font-weight: bold; }
+
+        /* --- FOOTER --- */
+        footer { background: var(--dark-maroon); color: white; padding: 60px 10% 20px; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px; margin-bottom: 40px; }
+        .footer-col h4 { margin-bottom: 20px; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; font-size: 14px; opacity: 0.8; display: flex; align-items: center; gap: 10px; }
+        
+        .bottom-line { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+        .visit-campus { background: var(--gold); color: #333; padding: 10px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="socials">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-youtube"></i>
+        </div>
+        <div class="top-links">Students | Faculty & Staff | Alumni | <i class="fas fa-lock"></i> Portal</div>
+    </div>
+
+    <nav>
+        <div class="logo-box">
+            <img src="images/loooo.jpg" alt="UEP Logo">
+            <h1>UNIVERSITY OF <br>EASTERN PANGASINAN</h1>
+        </div>
+        <ul>
+            <li><a href="#" class="active">Home</a></li>
+            <!-- ABOUT -->
+            <li class="dropdown">
+                <a href="#">About</i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="facilities.html">Facilities</a></li>
+                    <li><a href="organizational-structure.html">Organizational Structure</a></li>
+                    <li><a href="overview.html">Overview</a></li>
+                    <li><a href="school-seal.html">School Seal</a></li>
+                    <li><a href="sdg.html">Sustainable Development Goals</a></li>
+                </ul>
+            </li>
+            <!-- COURSE -->
+            <li class="dropdown">
+                <a href="#">Course</i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="education.html">Education</a></li>
+                    <li><a href="hospitality.html">Hospitality Management</a></li>
+                    <li><a href="criminology.html">Criminology</a></li>
+                    <li><a href="business.html">Business Administration</a></li>
+                    <li><a href="it.html">Information Technology</a></li>
+                    <li><a href="midwifery.html">Midwifery</a></li>
+                    <li><a href="accountancy.html">Accountancy</a></li>
+                    <li><a href="civil.html">Engineering</a></li>
+                </ul>
+            </li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="uep.html#contact-section">Contact Us</a></li>
+            <li><a href="portal.html">Portal</a></li>
+        </ul>
+        <a href="portal.html" class="enroll-btn">Enroll Now</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-left">
+            <h3>Welcome to</h3>
+            <h1>University of <br> Eastern Pangasinan</h1>
+            <p>Empowering minds. Transforming futures. <br>Your journey to excellence starts here.</p>
+            <div class="hero-btns">
+                <a href="#" class="btn-p">Explore Programs <i class="fas fa-arrow-right"></i></a>
+                <a href="#" class="btn-s">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="stats-strip">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-text">
+                        <strong>100%</strong>
+                        <small>First Timers (Out of 6)</small>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div class="stat-text">
+                        <strong>50.96%</strong>
+                        <small>National Passing Percentage</small>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-award"></i>
+                    <div class="stat-text">
+                        <strong>Top Performing</strong>
+                        <small>MIDWIVES Batch 2016</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-right">
+            <div class="img-curve">
+                <img src="images/back.png" alt="UEP Building" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            
+            <div class="midwives-overlay">
+                <div class="mid-header">
+                    <div class="star-badge"><i class="fas fa-star"></i></div>
+                    <div>
+                        <p style="font-size: 9px; color: var(--maroon); font-weight: 700;">Congratulations</p>
+                        <p style="font-size: 9px; color: var(--maroon); font-weight: 700;">to our new MIDWIVES!</p>
+                    </div>
+                    <div class="batch-badge">Batch 2016</div>
+                </div>
+                <div class="midwives-grid">
+                    <div class="midwife">
+                        <div class="m-photo"><img src="images/passer1.jpg" alt="Maricel"></div>
+                        <p class="m-name">MARICEL L. BERNALES</p>
+                        <p class="m-honor">Cum Laude</p>
+                        <p class="m-title">Nurse Supervisor</p>
+                    </div>
+                    <div class="midwife">
+                        <div class="m-photo"><img src="images/passer2.jpg" alt="Gretchen"></div>
+                        <p class="m-name">GRETCHEN C. ESTEBAN</p>
+                        <p class="m-honor">Cum Laude</p>
+                        <p class="m-title">Nurse II, RHU San Carlos</p>
+                    </div>
+                    <div class="midwife">
+                        <div class="m-photo"><img src="images/passer3.jpg" alt="Nikka"></div>
+                        <p class="m-name">NIKKA KATE P. GALERO</p>
+                        <p class="m-honor">Cum Laude</p>
+                        <p class="m-title">Nurse II, Ilocos Training</p>
+                    </div>
+                    <div class="midwife">
+                        <div class="m-photo"><img src="images/passer4.jpg" alt="Jessica"></div>
+                        <p class="m-name">JESSICA P. LABRADOR</p>
+                        <p class="m-honor">Cum Laude</p>
+                        <p class="m-title">Nurse II, Dr. Paulino J.</p>
+                    </div>
+                    <div class="midwife">
+                        <div class="m-photo"><img src="images/passer5.jpg" alt="Jennifer"></div>
+                        <p class="m-name">JENNIFER D. LIVERSO</p>
+                        <p class="m-honor">Cum Laude</p>
+                        <p class="m-title">Nurse II, UST Hospital</p>
+                    </div>
+                    <div class="midwife">
+                        <div class="m-photo"><img src="images/passer6.jpg" alt="Kristine"></div>
+                        <p class="m-name">KRISTINE FAYE M. YAM</p>
+                        <p class="m-honor">Cum Laude</p>
+                        <p class="m-title">Nurse II, UST Hospital</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-grid">
+        <div class="f-card">
+            <div class="icon-circle"><i class="fas fa-book"></i></div>
+            <div class="f-info">
+                <h4>Quality Education</h4>
+                <p>We provide accessible, relevant, and innovative programs.</p>
+            </div>
+        </div>
+        <div class="f-card">
+            <div class="icon-circle"><i class="fas fa-user-tie"></i></div>
+            <div class="f-info">
+                <h4>Experienced Faculty</h4>
+                <p>Learn from dedicated professionals and subject matter experts.</p>
+            </div>
+        </div>
+        <div class="f-card">
+            <div class="icon-circle"><i class="fas fa-medal"></i></div>
+            <div class="f-info">
+                <h4>Research & Innovation</h4>
+                <p>Driving progress through research, extension, and community engagement.</p>
+            </div>
+        </div>
+        <div class="f-card">
+            <div class="icon-circle"><i class="fas fa-users-cog"></i></div>
+            <div class="f-info">
+                <h4>Vibrant Campus Life</h4>
+                <p>Be part of a dynamic and inclusive community.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="news-section">
+    <h2 class="section-title">What's <span>Happening</span></h2>
+    <div class="news-container">
+        
+        <div class="news-card">
+            <div class="news-img">
+                <img src="images/1000.jpg" alt="Tree Planting Event">
+                <div class="date-tag">JUL<br>30</div>
+            </div>
+            <div class="news-info">
+                <p style="font-size: 14px; font-weight:600;">UEP takes part in tree planting at 12th HCU Thailand conference...</p>
+                <a href="https://uepbinalonan.edu.ph/article/28">See more <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <div class="news-img">
+                <img src="images/1001.jpg" alt="CHED Training">
+                <div class="date-tag">JUL<br>22</div>
+            </div>
+            <div class="news-info">
+                <p style="font-size: 14px; font-weight:600;">UEP-CTE participated in the CHED-funded Training for Educators...</p>
+                <a href="https://uepbinalonan.edu.ph/article/29">See more <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+    </div>
+    <button class="show-events-btn">Show Events</button>
+</section>
+
+    <section class="contact-section">
+        <div class="contact-left">
+            <h2>We'd love to <br>hear from you!</h2>
+            <p style="margin: 15px 0 30px; color: #666; font-size: 15px;">Our school is ready to answer your questions.</p>
+            
+            <a href="#" class="info-link"><i class="fas fa-map-marker-alt"></i> Canarvacanan, Binalonan, Pangasinan</a>
+            <a href="#" class="info-link"><i class="fas fa-phone-alt"></i> (075) 562 5874</a>
+            <a href="#" class="info-link"><i class="fab fa-facebook"></i> facebook.com/UEPangBinalonan</a>
+        </div>
+        
+        <form class="contact-form">
+            <input type="text" placeholder="*Name">
+            <input type="text" placeholder="*Enter Contact Number">
+            <input type="email" placeholder="*Enter Email Address">
+            <select>
+                <option>Select Department</option>
+                <option>Admissions</option>
+                <option>Registrar</option>
+            </select>
+            <textarea placeholder="*Message"></textarea>
+            <button type="submit" class="send-btn">Send</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h1 style="font-size: 20px; margin-bottom: 15px; line-height: 1.1;">UNIVERSITY OF <br>EASTERN PANGASINAN</h1>
+                <p style="font-size: 13px; opacity: 0.7;">Empowering minds. Transforming futures. Building a better tomorrow.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul><li>Home</li><li>About</li><li>Academics</li><li>Admissions</li><li>Contact</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Binalonan, Pangasinan</li>
+                    <li><i class="fas fa-phone"></i> (075) 562 5874</li>
+                    <li><i class="fas fa-envelope"></i> info@uep.edu.ph</li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom-line">
+            <p style="opacity: 0.6;">© 2026 University of Eastern Pangasinan. All Rights Reserved.</p>
+            <a href="#" class="visit-campus">Visit Campus <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>
